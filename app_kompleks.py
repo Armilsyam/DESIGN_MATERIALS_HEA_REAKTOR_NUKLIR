@@ -40,7 +40,8 @@ menu = [
     "10. Kurva Ekuilibrium Pareto",
     "11. Explainable AI (SHAP)",
     "12. Katalog Material In-Silico",
-    "13. Simulator Prediksi Real-Time"
+    "13. Simulator Prediksi Real-Time",
+    "14. Visualisasi Eksklusif & Sertifikat" # <--- TAMBAHKAN BARIS INI
 ]
 pilihan = st.sidebar.radio("Pilih Halaman Presentasi:", menu)
 st.sidebar.markdown("---")
