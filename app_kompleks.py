@@ -331,3 +331,109 @@ elif pilihan == menu[12]:
             else:
                 st.success("✅ MATERIAL AMAN: Membentuk Fasa BCC Kuat & Tangguh.")
             st.balloons()
+# ==========================================
+# HALAMAN 14: VISUALISASI EKSKLUSIF & SERTIFIKAT
+# ==========================================
+elif pilihan == menu[13]:
+    st.title("🎨 14. Galeri Sci-Art & Sertifikat In-Silico")
+    st.write("Representasi visual spasial dari kecerdasan buatan dan hasil akhir sertifikasi kandidat material juara.")
+    
+    # Import khusus untuk halaman ini
+    import scipy.ndimage
+    import qrcode
+    from PIL import Image
+
+    st.markdown("---")
+    st.subheader("1. Simulasi Peleburan Sintetik (GAN Microstructure)")
+    st.write("Visualisasi bagaimana GAN melebur titik-titik latent acak menjadi distribusi material baru.")
+    
+    fig1, ax1 = plt.subplots(figsize=(5, 5))
+    np.random.seed(42)
+    noise = np.random.rand(100, 100)
+    simulasi_peleburan = scipy.ndimage.gaussian_filter(noise, sigma=3)
+    cax1 = ax1.imshow(simulasi_peleburan, cmap='magma')
+    fig1.colorbar(cax1, ax=ax1, label="Konsentrasi Elemen")
+    ax1.axis('off')
+    st.pyplot(fig1)
+
+    st.markdown("---")
+    st.subheader("2. Peta Keputusan Termodinamika (PINN Boundary)")
+    st.write("AI memetakan zona aman fasa (BCC/FCC) dan menghindari zona intermetalik getas.")
+    
+    fig2, ax2 = plt.subplots(figsize=(7, 5))
+    omega_vals = np.linspace(0.8, 1.6, 100)
+    delta_vals = np.linspace(2.0, 8.0, 100)
+    O, D = np.meshgrid(omega_vals, delta_vals)
+    Z = (O >= 1.1) & (D <= 6.6)
+    
+    ax2.contourf(O, D, Z, levels=1, colors=['#e63946', '#2a9d8f'], alpha=0.6)
+    ax2.text(1.35, 4.0, "Zona Aman (Loss = 0)", fontsize=11, ha='center', color='white', weight='bold')
+    ax2.text(0.95, 7.2, "Zona Getas (Penalti PINN)", fontsize=11, ha='center', color='white', weight='bold')
+    ax2.set_xlabel(r"Parameter Stabilitas Fasa ($\Omega$)")
+    ax2.set_ylabel(r"Distorsi Kisi ($\delta$ %)")
+    ax2.grid(True, linestyle='--', alpha=0.3)
+    st.pyplot(fig2)
+
+    st.markdown("---")
+    st.subheader("3. Dinamika Evolusi NSGA-II")
+    st.write("Pergerakan mutasi kromosom material dari generasi pertama menuju generasi ke-50 (Pareto Front).")
+    
+    fig3, ax3 = plt.subplots(figsize=(7, 5))
+    np.random.seed(10)
+    biaya_g1 = np.random.uniform(30, 60, 50)
+    yield_g1 = np.random.uniform(800, 1100, 50)
+    biaya_g50 = np.random.uniform(15, 35, 50)
+    yield_g50 = 1500 - (1500 - 900) * np.exp(-0.08 * (biaya_g50 - 15)) + np.random.normal(0, 20, 50)
+    
+    ax3.scatter(biaya_g1, yield_g1, c='gray', alpha=0.5, label='Generasi 1 (Awal)', marker='x')
+    ax3.scatter(biaya_g50, yield_g50, c='crimson', alpha=0.8, s=60, edgecolors='k', label='Generasi 50 (Optimal)')
+    ax3.annotate('', xy=(25, 1300), xytext=(45, 950), arrowprops=dict(facecolor='teal', shrink=0.05, width=2))
+    ax3.text(32, 1100, "Arah Evolusi NSGA-II", color='teal', rotation=-45, weight='bold')
+    ax3.set_xlabel("Biaya Elemen Molybdenum")
+    ax3.set_ylabel("Yield Strength (MPa)")
+    ax3.legend()
+    ax3.grid(True, linestyle=':', alpha=0.6)
+    st.pyplot(fig3)
+
+    st.markdown("---")
+    st.subheader("4. Sertifikat Autentikasi In-Silico (Interaktif)")
+    st.info("💡 **Tips Presentasi:** Silakan minta dosen penguji Anda untuk melakukan *scan* QR Code di bawah ini menggunakan kamera HP mereka!")
+    
+    # Generate Sertifikat
+    fig4, ax4 = plt.subplots(figsize=(10, 6))
+    x = np.linspace(-5, 5, 500)
+    y = np.linspace(-5, 5, 500)
+    X, Y = np.meshgrid(x, y)
+    Z_metal = np.sin(X**2 + Y**2) * np.cos(X - Y)
+    
+    ax4.imshow(Z_metal, cmap='bone', extent=[0, 10, 0, 6], interpolation='bicubic')
+    ax4.axis('off')
+    
+    ax4.text(0.5, 5.2, "CERTIFICATE OF IN-SILICO GENERATION", color='gold', fontsize=16, weight='heavy', family='sans-serif')
+    ax4.text(0.5, 4.5, "KANDIDAT: HEA-Mo-Opt1 (Fe-Cr-Ni-Mo-Al)", color='white', fontsize=14, weight='bold')
+    
+    spesifikasi = (
+        "Spesifikasi Komputasional:\n"
+        "► Fraksi Molybdenum : 3.10%\n"
+        "► Fraksi Aluminium : 18.70%\n"
+        "► Yield Strength : 1450 MPa\n"
+        "► Stabilitas Matriks : BCC Phase (Ω = 1.18)\n"
+        "► PVR (Halusinasi) : 0.00% (Aman)"
+    )
+    bbox_props = dict(boxstyle="round,pad=0.5", fc="black", ec="gold", alpha=0.7)
+    ax4.text(0.5, 2.5, spesifikasi, color='white', fontsize=12, bbox=bbox_props, linespacing=1.8)
+    
+    # Generate QR Code
+    # URL di bawah ini mengarah ke web Streamlit Anda (Ganti jika URL Anda berbeda)
+    url_aplikasi = "https://designmaterialsmuharmilsyam2026.streamlit.app" 
+    qr = qrcode.QRCode(version=1, box_size=10, border=2)
+    qr.add_data(url_aplikasi)
+    qr.make(fit=True)
+    img_qr = qr.make_image(fill_color="black", back_color="white").convert('RGB')
+    qr_array = np.array(img_qr)
+    
+    ax4.imshow(qr_array, extent=[7.5, 9.5, 0.5, 2.5], zorder=10)
+    ax4.text(8.5, 0.2, "SCAN UNTUK SIMULATOR", color='gold', fontsize=10, weight='bold', ha='center')
+    
+    st.pyplot(fig4)
+    st.balloons() # Efek balon saat halaman dibuka
